@@ -1,13 +1,15 @@
 console.log('App.js is running!');
 var obj = {
   title: "Indecision App",
-  subtitle: "This is some info"
+  subtitle: "This is some info",
+  options: ['One', 'Two']
 }
 // JSX - JavaScript XML
 var template = (
   <div>
     <h1>{obj.title}</h1>
-    <p>{obj.subtitle}</p>
+    {obj.subtitle && <p>{obj.subtitle}</p>}
+    <p>{obj.options.length > 0 ? "here they are" : "none avail"}</p>
     <ol>
       <li>Item one</li>
       <li>Item two</li>
@@ -23,11 +25,16 @@ var user = {
 // var userName = 'Mike';
 // var userAge = 27;
 // var userLocation = 'Chicago';
+function getLocation(location) {
+  if (location) {
+    return <p>Location: {location}</p>;
+  }
+}
 var templateTwo = (
   <div>
-    <h1>{user.name}</h1>
-    <p>Age: {user.age}</p>
-    <p>Location: {user.location}</p>
+    <h1>{user.name ? user.name : 'Anonymous'}</h1>
+    {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
+    {getLocation(user.location)}
   </div>
 );
 
