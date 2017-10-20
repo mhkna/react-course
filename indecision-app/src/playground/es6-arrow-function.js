@@ -1,7 +1,5 @@
-"use strict";
-
 //anon old function
-var square = function square(x) {
+const square = function (x) {
   return x * x;
 };
 
@@ -16,7 +14,7 @@ console.log(squareName(3));
 
 // now using es6 arrow function...
 // all arrow func are anon...must be set to variable
-var squareArrow = function squareArrow(x) {
+const squareArrow = (x) => {
   return x * x;
 };
 
@@ -24,8 +22,6 @@ console.log(squareArrow(9));
 
 // if returns single expression use the new concise syntax
 // has implicit return
-var sqArrow = function sqArrow(x) {
-  return x * x;
-};
+const sqArrow = (x) => x * x;
 
 console.log(sqArrow(4));
