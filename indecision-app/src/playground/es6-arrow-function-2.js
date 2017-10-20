@@ -1,5 +1,3 @@
-'use strict';
-
 // arguments object - no longer bound with arrow functions
 
 // const add = function (a, b) {
@@ -9,12 +7,14 @@
 // // 1001 still accessable in add even though its not a parameter
 // console.log(add(55,1,1001));
 
-var addTwo = function addTwo(a, b) {
+const addTwo = (a, b) => {
   // arguments don't work...if needed use es5 syntax
   // console.log(arguments)
   return a + b;
-};
-console.log(addTwo(55, 1));
+}
+console.log(addTwo(55,1));
+
+
 
 // this keyword - no longer bound with arrow functions
 
@@ -37,17 +37,13 @@ console.log(addTwo(55, 1));
 // user.printPlacesLived();
 
 
-var userTwo = {
+const userTwo = {
   name: 'Michael',
   cities: ['Rochester', 'Fort Myers', 'Chicago'],
   // dont use arrow func for printPlaces because this is undefined
   // also new syntax below
-  printPlacesLive: function printPlacesLive() {
-    var _this = this;
-
-    return this.cities.map(function (city) {
-      return _this.name + ' has lived in ' + city;
-    });
+  printPlacesLive() {
+    return this.cities.map((city) => this.name + ' has lived in ' + city);
     // this.cities.forEach((city) => {
     //   // this value is in context they are created aka this functions parent
     //   console.log(this.name + ' has lived in ' + city)
@@ -56,15 +52,11 @@ var userTwo = {
 };
 console.log(userTwo.printPlacesLive());
 
-var multiplier = {
+const multiplier = {
   numbers: [1, 2, 4, 6],
   multiplyBy: 3,
-  multiply: function multiply() {
-    var _this2 = this;
-
-    return this.numbers.map(function (number) {
-      return number * _this2.multiplyBy;
-    });
+  multiply() {
+    return this.numbers.map((number) => number * this.multiplyBy);
   }
 };
 console.log(multiplier.multiply());

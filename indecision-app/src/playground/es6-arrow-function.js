@@ -25,3 +25,12 @@ console.log(squareArrow(9));
 const sqArrow = (x) => x * x;
 
 console.log(sqArrow(4));
+
+
+
+
+
+//exercise
+const getFirstName = (name) => name.split(' ')[0];
+
+console.log(getFirstName('Mike Smith'));
