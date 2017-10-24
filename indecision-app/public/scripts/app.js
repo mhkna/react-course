@@ -1,70 +1,83 @@
-'use strict';
+"use strict";
 
-// arguments object - no longer bound with arrow functions
+console.log('App.js is running!');
+var obj = {
+  title: "Indecision App",
+  subtitle: "This is some info",
+  options: ['One', 'Two']
+  // JSX - JavaScript XML
+};var template = React.createElement(
+  "div",
+  null,
+  React.createElement(
+    "h1",
+    null,
+    obj.title
+  ),
+  obj.subtitle && React.createElement(
+    "p",
+    null,
+    obj.subtitle
+  ),
+  React.createElement(
+    "p",
+    null,
+    obj.options.length > 0 ? "here they are" : "none avail"
+  ),
+  React.createElement(
+    "ol",
+    null,
+    React.createElement(
+      "li",
+      null,
+      "Item one"
+    ),
+    React.createElement(
+      "li",
+      null,
+      "Item two"
+    )
+  )
+);
 
-// const add = function (a, b) {
-//   console.log(arguments);
-//   return a + b;
-// };
-// // 1001 still accessable in add even though its not a parameter
-// console.log(add(55,1,1001));
-
-var addTwo = function addTwo(a, b) {
-  // arguments don't work...if needed use es5 syntax
-  // console.log(arguments)
-  return a + b;
+var count = 0;
+var addOne = function addOne() {
+  console.log('addOne');
 };
-console.log(addTwo(55, 1));
-
-// this keyword - no longer bound with arrow functions
-
-// const user = {
-//   name: 'Michael',
-//   cities: ['Rochester', 'Fort Myers', 'Chicago'],
-//   printPlacesLived: function () {
-//     console.log(this.name);
-//     console.log(this.cities);
-//     const that = this;
-//
-//     this.cities.forEach(function (city) {
-//       // this not accessable in this function ... use 'that'
-//       // this only accessable on function on object property like printPlacesLived function which is why it logs above
-//       console.log(that.name + ' has lived in ' + city)
-//     });
-//   }
-// };
-//
-// user.printPlacesLived();
-
-
-var userTwo = {
-  name: 'Michael',
-  cities: ['Rochester', 'Fort Myers', 'Chicago'],
-  // dont use arrow func for printPlaces because this is undefined
-  // also new syntax below
-  printPlacesLive: function printPlacesLive() {
-    var _this = this;
-
-    return this.cities.map(function (city) {
-      return _this.name + ' has lived in ' + city;
-    });
-    // this.cities.forEach((city) => {
-    //   // this value is in context they are created aka this functions parent
-    //   console.log(this.name + ' has lived in ' + city)
-    // });
-  }
+var minusOne = function minusOne() {
+  console.log('minusOne');
 };
-console.log(userTwo.printPlacesLive());
-
-var multiplier = {
-  numbers: [1, 2, 4, 6],
-  multiplyBy: 3,
-  multiply: function multiply() {
-    var _this2 = this;
-
-    return this.numbers.map(function (number) {
-      return number * _this2.multiplyBy;
-    });
-  }
+var reset = function reset() {
+  console.log('reset');
 };
-console.log(multiplier.multiply());
+var templateTwo = React.createElement(
+  "div",
+  null,
+  React.createElement(
+    "h1",
+    null,
+    "Count: ",
+    count
+  ),
+  React.createElement(
+    "button",
+    { onClick: addOne },
+    "+1"
+  ),
+  React.createElement(
+    "button",
+    { onClick: minusOne },
+    "-1"
+  ),
+  React.createElement(
+    "button",
+    { onClick: reset },
+    "reset"
+  )
+);
+//make -1 button setup minusOne function and register - log -1
+//make reset button "reset" - function fires setup reset function - log reset
+
+var appRoot = document.getElementById('app');
+
+ReactDOM.render(templateTwo, appRoot);
