@@ -24,9 +24,13 @@ var onRemoveAll = function onRemoveAll() {
   render();
 };
 
-var appRoot = document.getElementById('app');
+var onMakeDecision = function onMakeDecision() {
+  var randomNum = Math.floor(Math.random() * obj.options.length);
+  var option = obj.options[randomNum];
+  alert(option);
+};
 
-var numbers = [55, 101, 1000];
+var appRoot = document.getElementById('app');
 
 var render = function render() {
   var template = React.createElement(
@@ -48,9 +52,9 @@ var render = function render() {
       obj.options.length > 0 ? "here they are" : "none avail"
     ),
     React.createElement(
-      "p",
-      null,
-      obj.options.length
+      "button",
+      { disabled: obj.options.length === 0, onClick: onMakeDecision },
+      "What should I do?"
     ),
     React.createElement(
       "button",
