@@ -2,49 +2,42 @@ console.log('App.js is running!');
 const obj = {
   title: "Indecision App",
   subtitle: "This is some info",
-  options: ['One', 'Two']
-}
-// JSX - JavaScript XML
-const template = (
-  <div>
-    <h1>{obj.title}</h1>
-    {obj.subtitle && <p>{obj.subtitle}</p>}
-    <p>{obj.options.length > 0 ? "here they are" : "none avail"}</p>
-    <ol>
-      <li>Item one</li>
-      <li>Item two</li>
-    </ol>
-  </div>
-);
+  options: []
+};
 
-let count = 0;
-const addOne = () => {
-  count++;
-  renderCounterApp();
-};
-const minusOne = () => {
-  count--;
-  renderCounterApp();
-};
-const reset = () => {
-  count = 0;
-  renderCounterApp();
+const onFormSubmit = (event) => {
+  event.preventDefault();
+
+  const option = event.target.elements.option.value;
+
+  if (option) {
+    obj.options.push(option);
+    event.target.elements.option.value = '';
+    render();
+  }
 };
 
 const appRoot = document.getElementById('app');
 
-
-const renderCounterApp = () => {
-  const templateTwo = (
+const render = () => {
+  const template = (
     <div>
-      <h1>Count: {count}</h1>
-      <button onClick={addOne}>+1</button>
-      <button onClick={minusOne}>-1</button>
-      <button onClick={reset}>reset</button>
+      <h1>{obj.title}</h1>
+      {obj.subtitle && <p>{obj.subtitle}</p>}
+      <p>{obj.options.length > 0 ? "here they are" : "none avail"}</p>
+      <p>{obj.options.length}</p>
+      <ol>
+        <li>Item one</li>
+        <li>Item two</li>
+      </ol>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="option"/>
+        <button>Add Option</button>
+      </form>
     </div>
   );
 
-  ReactDOM.render(templateTwo, appRoot);
+  ReactDOM.render(template, appRoot);
 };
 
-renderCounterApp();
+render();
