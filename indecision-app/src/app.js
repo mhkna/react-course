@@ -1,3 +1,16 @@
+class IndecisionApp extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <Action />
+        <Options />
+        <AddOption />
+      </div>
+    );
+  }
+}
+
 // react component is just an es6 class
 class Header extends React.Component {
   // react components MUST define render
@@ -19,13 +32,27 @@ class Action extends React.Component {
       </div>
     );
   }
+  }
+
+class Options extends React.Component {
+  render()  {
+    return (
+      <div>
+        <p>This is the holder for options</p>
+      </div>
+    );
+  }
 }
 
-const jsx = (
-  <div>
-    <Header/>
-    <Action/>
-  </div>
-)
+class AddOption extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>FORM</p>
+        <button>Add</button>
+      </div>
+    );
+  }
+}
 
-ReactDOM.render(jsx, document.getElementById('app'))
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
