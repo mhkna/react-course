@@ -44,8 +44,13 @@ class Action extends React.Component {
   }
 
 class Options extends React.Component {
+  // passing in props is same as this.props anywhere else. automatic in constructor
+  constructor(props) {
+    super(props);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
   handleRemoveAll() {
-    alert('removed');
+    console.log(this.props.options);
   }
   render()  {
     return (
