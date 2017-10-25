@@ -1,56 +1,100 @@
-console.log('App.js is running!');
-const obj = {
-  title: "Indecision App",
-  subtitle: "This is some info",
-  options: []
-};
+class IndecisionApp extends React.Component {
+  render() {
+    const title = 'Indecision';
+    const subtitle = 'We will choose for you';
+    const options = ['one', 'two', 'three'];
 
-const onFormSubmit = (event) => {
-  event.preventDefault();
-
-  const option = event.target.elements.option.value;
-
-  if (option) {
-    obj.options.push(option);
-    event.target.elements.option.value = '';
-    render();
+    return (
+      <div>
+        <Header title={title} subtitle={subtitle} />
+        <Action />
+        <Options options={options}/>
+        <AddOption />
+      </div>
+    );
   }
-};
+}
 
-const onRemoveAll = () => {
-  obj.options = [];
-  render();
-};
+// react component is just an es6 class
+class Header extends React.Component {
+  // react components MUST define render
+  // console.log(this.props);
+  render() {
+    console.log(this.props);
+    return (
+      <div>
+        <h1>{this.props.title}</h1>
+        <h2>{this.props.subtitle}</h2>
+      </div>
+    );
+  }
+}
 
-const onMakeDecision = () => {
-    const randomNum = Math.floor(Math.random() * obj.options.length);
-    const option = obj.options[randomNum];
-    alert(option);
-};
+class Action extends React.Component {
+  handlePick() {
+    alert('handlePick');
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.handlePick}>What should I do?</button>
+      </div>
+    );
+  }
+  }
 
-const appRoot = document.getElementById('app');
-
-const render = () => {
-  const template = (
-    <div>
-      <h1>{obj.title}</h1>
-      {obj.subtitle && <p>{obj.subtitle}</p>}
-      <p>{obj.options.length > 0 ? "here they are" : "none avail"}</p>
-      <button disabled={obj.options.length === 0} onClick={onMakeDecision}>What should I do?</button>
-      <button onClick={onRemoveAll}>Remove All</button>
-      <ol>
+class Options extends React.Component {
+  // passing in props is same as this.props anywhere else. automatic in constructor
+  constructor(props) {
+    super(props);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
+  handleRemoveAll() {
+    console.log(this.props.options);
+  }
+  render()  {
+    return (
+      <div>
+        <button onClick={this.handleRemoveAll}>Remove All</button>
         {
-          obj.options.map((option) => <li key={option}>{option}</li>)
+          this.props.options.map((option) => <Option key={option} optionText={option} />)
         }
-      </ol>
-      <form onSubmit={onFormSubmit}>
-        <input type="text" name="option"/>
-        <button>Add Option</button>
-      </form>
-    </div>
-  );
+      </div>
+    );
+  }
+}
 
-  ReactDOM.render(template, appRoot);
-};
+class Option extends React.Component {
+  render() {
+    return (
+      <div>
+        * {this.props.optionText}
+      </div>
+    );
+  }
+}
 
-render();
+class AddOption extends React.Component {
+  handleAddOption(event) {
+    event.preventDefault();
+    // event.target is the form element which has two elements of input and button. then option is name we gave the element
+    // trim removes spaces
+    const option = event.target.elements.option.value.trim();
+
+    if (option) {
+      alert(option);
+    }
+  }
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleAddOption}>
+          <input type="text" name="option"/>
+          <button>Add Option</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
