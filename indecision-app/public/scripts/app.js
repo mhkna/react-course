@@ -1,40 +1,38 @@
 'use strict';
 
-console.log('App.js is running!');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var visibility = false;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var toggleVis = function toggleVis() {
-  visibility = !visibility;
-  render();
-};
+var Person = function () {
+  function Person() {
+    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Anonymous';
+    var age = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-var render = function render() {
-  var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-      'h1',
-      null,
-      'Visibility Toggle'
-    ),
-    React.createElement(
-      'button',
-      { onClick: toggleVis },
-      visibility ? 'Hide Details' : 'Show Details'
-    ),
-    visibility && React.createElement(
-      'div',
-      null,
-      React.createElement(
-        'p',
-        null,
-        'Details Here'
-      )
-    )
-  );
+    _classCallCheck(this, Person);
 
-  ReactDOM.render(template, document.getElementById('app'));
-};
+    this.name = name;
+    this.age = age;
+  }
 
-render();
+  _createClass(Person, [{
+    key: 'getGreeting',
+    value: function getGreeting() {
+      // return 'Hi. I am ' + this.name + '!';
+      return 'Hi. I am ' + this.name + '!';
+    }
+  }, {
+    key: 'getDescription',
+    value: function getDescription() {
+      return this.name + ' is ' + this.age + ' year(s) old';
+    }
+  }]);
+
+  return Person;
+}();
+
+var me = new Person('Michael Knapp', 27);
+console.log(me.getDescription());
+
+var other = new Person();
+console.log(other.getDescription());
