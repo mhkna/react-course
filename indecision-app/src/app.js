@@ -11,10 +11,19 @@ class IndecisionApp extends React.Component {
   }
   //lifecycle method must be spelled correctly and CANT be used on functional stateless
   componentDidMount() {
-    console.log('fetching data');
+    //fetching data
+    const json = localStorage.getItem('options');
+    const options = JSON.parse(json);
+
+    this.setState(() => ({ options: options }))
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log('saving data');
+    //saving data if actually changed
+    if (prevState.options.length !== this.state.options.length) {
+      const json = JSON.stringify(this.state.options)
+      //key value pair below where you make up key
+      localStorage.setItem('options', json);
+    }
   }
   //unmounted from screen aka render new page
   componentWillUnmount() {

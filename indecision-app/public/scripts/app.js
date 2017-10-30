@@ -31,12 +31,23 @@ var IndecisionApp = function (_React$Component) {
   _createClass(IndecisionApp, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      console.log('fetching data');
+      //fetching data
+      var json = localStorage.getItem('options');
+      var options = JSON.parse(json);
+
+      this.setState(function () {
+        return { options: options };
+      });
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
-      console.log('saving data');
+      //saving data if actually changed
+      if (prevState.options.length !== this.state.options.length) {
+        var json = JSON.stringify(this.state.options);
+        //key value pair below where you make up key
+        localStorage.setItem('options', json);
+      }
     }
     //unmounted from screen aka render new page
 
