@@ -4,6 +4,7 @@ class IndecisionApp extends React.Component {
     this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
     this.handlePick = this.handlePick.bind(this);
     this.handleAddOption = this.handleAddOption.bind(this);
+    this.handleDeleteOption = this.handleDeleteOption.bind(this);
     this.state = {
       options: props.options
     };
@@ -13,6 +14,15 @@ class IndecisionApp extends React.Component {
       return {
         options: []
       };
+    });
+  }
+  handleDeleteOption(optionToRemove) {
+    this.setState((prevState) => {
+      return {
+        options: prevState.options.filter((option) => {
+          return optionToRemove !== option;
+        })
+      }
     });
   }
   handlePick() {
@@ -46,6 +56,7 @@ class IndecisionApp extends React.Component {
         <Options
           options={this.state.options}
           handleDeleteOptions={this.handleDeleteOptions}
+          handleDeleteOption={this.handleDeleteOption}
         />
         <AddOption
           handleAddOption={this.handleAddOption}
@@ -122,7 +133,13 @@ const Options = (props) => {
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
       {
-        props.options.map((option) => <Option key={option} optionText={option} />)
+        props.options.map((option) => (
+          <Option
+            key={option}
+            optionText={option}
+            handleDeleteOption={props.handleDeleteOption}
+          />
+        ))
       }
     </div>
   );
@@ -154,6 +171,14 @@ const Option = (props) => {
   return (
     <div>
       * {props.optionText}
+      <button
+        onClick={(e) => {
+          //passing optionText up to handleDeleteOption
+          props.handleDeleteOption(props.optionText);
+        }}
+      >
+        remove
+      </button>
     </div>
   );
 };
@@ -183,11 +208,8 @@ class AddOption extends React.Component {
     const option = event.target.elements.option.value.trim();
     const error = this.props.handleAddOption(option);
 
-    this.setState(() => {
-      return {
-        error: error
-      };
-    });
+    //implicit returning an opject requires braces wrapped in parens
+    this.setState(() => ({ error: error }));
   }
   render() {
     return (
