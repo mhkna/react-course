@@ -6,9 +6,26 @@ class Counter extends React.Component {
     this.handleReset = this.handleReset.bind(this);
     // pieces of state we want to track... here only count
     this.state = {
-      count: props.count,
+      count: 0,
       name: 'Michael'
     };
+  }
+  componentDidMount() {
+    try {
+      const count = localStorage.getItem('count');
+      const countInt = parseInt(count, 10);
+
+      if (!isNaN(count)) {
+        this.setState(() => ({ count: countInt }));
+      }
+    } catch (e) {
+      //do nothing
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.count !== this.state.count) {
+      localStorage.setItem('count', this.state.count);
+    }
   }
   handleAddOne() {
     this.setState((prevState) => {
@@ -44,11 +61,7 @@ class Counter extends React.Component {
   }
 }
 
-Counter.defaultProps = {
-  count: 0
-};
-
-ReactDOM.render(<Counter count={100}/>, document.getElementById('app'));
+ReactDOM.render(<Counter />, document.getElementById('app'));
 
 
 // let count = 0;

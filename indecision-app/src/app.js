@@ -6,16 +6,23 @@ class IndecisionApp extends React.Component {
     this.handleAddOption = this.handleAddOption.bind(this);
     this.handleDeleteOption = this.handleDeleteOption.bind(this);
     this.state = {
-      options: props.options
+      options: []
     };
   }
   //lifecycle method must be spelled correctly and CANT be used on functional stateless
   componentDidMount() {
-    //fetching data
-    const json = localStorage.getItem('options');
-    const options = JSON.parse(json);
+    //try/catch bc invalid json throws error
+    try {
+      //fetching data
+      const json = localStorage.getItem('options');
+      const options = JSON.parse(json);
 
-    this.setState(() => ({ options: options }))
+      if (options) {
+        this.setState(() => ({ options: options }))
+      }
+    } catch (e) {
+      // Do nothing at all
+    }
   }
   componentDidUpdate(prevProps, prevState) {
     //saving data if actually changed
@@ -84,10 +91,6 @@ class IndecisionApp extends React.Component {
   }
 }
 
-IndecisionApp.defaultProps = {
-  options: []
-};
-
 const Header = (props) => {
   return (
     <div>
@@ -150,6 +153,7 @@ const Options = (props) => {
   return (
     <div>
       <button onClick={props.handleDeleteOptions}>Remove All</button>
+      {props.options.length === 0 && <p>Please add an option to get started</p>}
       {
         props.options.map((option) => (
           <Option
@@ -228,6 +232,10 @@ class AddOption extends React.Component {
 
     //implicit returning an opject requires braces wrapped in parens
     this.setState(() => ({ error: error }));
+
+    if (!error) {
+      event.target.elements.option.value = '';
+    }
   }
   render() {
     return (
