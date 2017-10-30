@@ -6,7 +6,7 @@ class Counter extends React.Component {
     this.handleReset = this.handleReset.bind(this);
     // pieces of state we want to track... here only count
     this.state = {
-      count: 0,
+      count: props.count,
       name: 'Michael'
     };
   }
@@ -44,7 +44,11 @@ class Counter extends React.Component {
   }
 }
 
-ReactDOM.render(<Counter />, document.getElementById('app'));
+Counter.defaultProps = {
+  count: 0
+};
+
+ReactDOM.render(<Counter count={100}/>, document.getElementById('app'));
 
 
 // let count = 0;
