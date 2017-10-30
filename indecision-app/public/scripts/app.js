@@ -25,8 +25,27 @@ var IndecisionApp = function (_React$Component) {
     };
     return _this;
   }
+  //lifecycle method must be spelled correctly and CANT be used on functional stateless
+
 
   _createClass(IndecisionApp, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      console.log('fetching data');
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      console.log('saving data');
+    }
+    //unmounted from screen aka render new page
+
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      console.log('about to unmount');
+    }
+  }, {
     key: 'handleDeleteOptions',
     value: function handleDeleteOptions() {
       this.setState(function () {

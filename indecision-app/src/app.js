@@ -9,6 +9,17 @@ class IndecisionApp extends React.Component {
       options: props.options
     };
   }
+  //lifecycle method must be spelled correctly and CANT be used on functional stateless
+  componentDidMount() {
+    console.log('fetching data');
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log('saving data');
+  }
+  //unmounted from screen aka render new page
+  componentWillUnmount() {
+    console.log('about to unmount');
+  }
   handleDeleteOptions() {
     this.setState(() => {
       return {
@@ -19,9 +30,7 @@ class IndecisionApp extends React.Component {
   handleDeleteOption(optionToRemove) {
     this.setState((prevState) => {
       return {
-        options: prevState.options.filter((option) => {
-          return optionToRemove !== option;
-        })
+        options: prevState.options.filter((option) => optionToRemove !== option)
       }
     });
   }
