@@ -3,6 +3,7 @@ import AddOption from './AddOption.js';
 import Options from './Options.js'
 import Action from './Action.js';
 import Header from './Header.js';
+import OptionModal from './OptionModal.js';
 
 // pull state out of constructor
 // convert event handlers
@@ -16,7 +17,8 @@ class IndecisionApp extends React.Component {
   handleDeleteOptions = () => {
     this.setState(() => {
       return {
-        options: []
+        options: [],
+        selectedOption: undefined
       };
     });
   };
@@ -27,10 +29,21 @@ class IndecisionApp extends React.Component {
       }
     });
   };
+  handleClearSelected = () => {
+    this.setState(() => {
+      return {
+        selectedOption: undefined
+      }
+    });
+  };
   handlePick = () => {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNum];
-    alert(option);
+    this.setState(() => {
+      return {
+        selectedOption: option
+      }
+    });
   };
   handleAddOption = (option) => {
     if (!option) {
@@ -86,6 +99,10 @@ class IndecisionApp extends React.Component {
         />
         <AddOption
           handleAddOption={this.handleAddOption}
+        />
+        <OptionModal
+          selectedOption={this.state.selectedOption}
+          handleClearSelected={this.handleClearSelected}
         />
       </div>
     );
