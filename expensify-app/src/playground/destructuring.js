@@ -44,3 +44,21 @@ console.log(`You are in ${city2} ${yourState}.`);
 const item = ['Coffee (hot)', '$2.00', '$2.50', '$2.75'];
 const [itemName, , medPrice] = item;
 console.log(`A medium ${itemName} costs ${medPrice}.`)
+
+
+
+
+
+//
+// ADDITIONAL
+//
+
+const add = (data) => {
+  return data.a + data.b;
+};
+// above is equiv to below except for c part
+const add = ({ a, b }, c) => {
+  return a + b + c;
+};
+
+console.log(add({ a: 1, b: 12 }, 100));
